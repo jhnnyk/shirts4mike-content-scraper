@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/jhnnyk/shirts4mike-content-scraper/issues"
   },
-  "homepage": "https://github.com/jhnnyk/shirts4mike-content-scraper#readme"
+  "homepage": "https://github.com/jhnnyk/shirts4mike-content-scraper#readme",
+  "dependencies": {
+    "scrape-it": "^3.3.2"
+  }
 }
