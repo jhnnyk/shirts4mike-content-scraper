@@ -8,15 +8,17 @@ fs.stat("data/", (err, stats) => {
   }
 });
 
-// scrape the webpage
-scrapeIt("http://www.irunfar.com/", {
-    articles: {
-        listItem: ".noFeat",
+// scrape the index page to get the URLs for each shirt
+scrapeIt("http://www.shirts4mike.com/shirts.php", {
+    shirts: {
+        listItem: ".products li",
         data: {
-            title: "h5",
-            excerpt: ".excerpt"
+            url: {
+              selector: "a",
+              attr: "href"
+            }
         }
     }
-}).then(page => {
-    console.log(page);
+}).then(shirtURLs => {
+    console.log(shirtURLs);
 });
