@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/jhnnyk/shirts4mike-content-scraper#readme",
   "dependencies": {
+    "json-2-csv": "^2.1.1",
     "scrape-it": "^3.3.2"
   }
 }

@@ -1,5 +1,8 @@
 const fs = require('fs');
 const scrapeIt = require('scrape-it');
+const converter = require('json-2-csv');
+
+let shirtsArray = [];
 
 // function to scrape info for each individual shirt
 const scrapeShirt = (shirt) => {
@@ -11,8 +14,9 @@ const scrapeShirt = (shirt) => {
       attr: "src"
     }
   }).then(shirt => {
-    shirt.time = new Date();
-    console.log(shirt);
+    shirt.time = new Date().toString();
+    shirtsArray.push(shirt);
+    convert2csv();
   });
 };
 
@@ -37,3 +41,13 @@ scrapeIt("http://www.shirts4mike.com/shirts.php", {
 }).then(shirtURLs => {
     shirtURLs.shirts.forEach(scrapeShirt);
 });
+
+// go through the shirts array and parse it as CSV
+const json2csvCallback = function (err, csv) {
+    if (err) throw err;
+    console.log(csv);
+};
+
+const convert2csv = function () {
+  converter.json2csv(shirtsArray, json2csvCallback);
+};
