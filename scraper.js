@@ -3,6 +3,7 @@ const scrapeIt = require('scrape-it');
 const converter = require('json-2-csv');
 
 let shirtsArray = [];
+let numberOfShirts = 0;
 
 // function to scrape info for each individual shirt
 const scrapeShirt = (shirt) => {
@@ -16,7 +17,9 @@ const scrapeShirt = (shirt) => {
   }).then(shirt => {
     shirt.time = new Date().toString();
     shirtsArray.push(shirt);
-    convert2csv();
+    if (numberOfShirts === shirtsArray.length) {
+      convert2csv();
+    }
   });
 };
 
@@ -40,6 +43,7 @@ scrapeIt("http://www.shirts4mike.com/shirts.php", {
     }
 }).then(shirtURLs => {
     shirtURLs.shirts.forEach(scrapeShirt);
+    numberOfShirts = shirtURLs.shirts.length;
 });
 
 // go through the shirts array and parse it as CSV
