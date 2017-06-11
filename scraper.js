@@ -5,24 +5,6 @@ const converter = require('json-2-csv');
 let shirtsArray = [];
 let numberOfShirts = 0;
 
-// function to scrape info for each individual shirt
-const scrapeShirt = (shirt) => {
-  scrapeIt("http://www.shirts4mike.com/" + shirt.url, {
-    title: "title",
-    price: "h1 span",
-    imgURL: {
-      selector: ".shirt-picture img",
-      attr: "src"
-    }
-  }).then(shirt => {
-    shirt.time = new Date().toString();
-    shirtsArray.push(shirt);
-    if (numberOfShirts === shirtsArray.length) {
-      convert2csv();
-    }
-  });
-};
-
 // if the 'data' directory does not exist, create it
 fs.stat("data/", (err, stats) => {
   if (err) {
@@ -46,12 +28,31 @@ scrapeIt("http://www.shirts4mike.com/shirts.php", {
     numberOfShirts = shirtURLs.shirts.length;
 });
 
-// go through the shirts array and parse it as CSV
-const json2csvCallback = function (err, csv) {
-    if (err) throw err;
-    console.log(csv);
+// scrape info for each individual shirt
+const scrapeShirt = (shirt) => {
+  scrapeIt("http://www.shirts4mike.com/" + shirt.url, {
+    title: "title",
+    price: "h1 span",
+    imgURL: {
+      selector: ".shirt-picture img",
+      attr: "src"
+    }
+  }).then(shirt => {
+    shirt.time = new Date().toString();
+    shirtsArray.push(shirt);
+    if (numberOfShirts === shirtsArray.length) {
+      convert2csv();
+    }
+  });
 };
 
+// go through the shirts array and parse it as CSV
 const convert2csv = function () {
-  converter.json2csv(shirtsArray, json2csvCallback);
+  converter.json2csv(shirtsArray, write2csv);
+};
+
+// write the CSV file
+const write2csv = function (err, csv) {
+    if (err) throw err;
+    console.log(csv);
 };
