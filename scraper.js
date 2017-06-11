@@ -54,5 +54,8 @@ const convert2csv = function () {
 // write the CSV file
 const write2csv = function (err, csv) {
     if (err) throw err;
-    console.log(csv);
+    fs.writeFile('today.csv', csv, (error) => {
+      if (error) throw error;
+      console.log('The file has been saved!');
+    });
 };
