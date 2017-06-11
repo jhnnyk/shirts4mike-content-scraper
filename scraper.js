@@ -14,18 +14,18 @@ fs.stat("data/", (err, stats) => {
 
 // scrape the index page to get the URLs for each shirt
 scrapeIt("http://www.shirts4mike.com/shirts.php", {
-    shirts: {
-        listItem: ".products li",
-        data: {
-            url: {
-              selector: "a",
-              attr: "href"
-            }
-        }
+  shirts: {
+    listItem: ".products li",
+    data: {
+      url: {
+        selector: "a",
+        attr: "href"
+      }
     }
+  }
 }).then(shirtURLs => {
-    shirtURLs.shirts.forEach(scrapeShirt);
-    numberOfShirts = shirtURLs.shirts.length;
+  shirtURLs.shirts.forEach(scrapeShirt);
+  numberOfShirts = shirtURLs.shirts.length;
 });
 
 // scrape info for each individual shirt
@@ -53,9 +53,9 @@ const convert2csv = function () {
 
 // write the CSV file
 const write2csv = function (err, csv) {
-    if (err) throw err;
-    fs.writeFile('today.csv', csv, (error) => {
-      if (error) throw error;
-      console.log('The file has been saved!');
-    });
+  if (err) throw err;
+  fs.writeFile('today.csv', csv, (error) => {
+    if (error) throw error;
+    console.log('The file has been saved!');
+  });
 };
