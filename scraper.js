@@ -54,12 +54,17 @@ const convert2csv = function () {
   converter.json2csv(shirtsArray, write2csv)
 }
 
+// create filename from the current date
+const createFilename = () => {
+  let today = new Date()
+  let todaysMonth = ('0' + (today.getMonth() + 1)).slice(-2)
+  let todaysDate = ('0' + today.getDate()).slice(-2)
+  return today.getFullYear() + '-' + todaysMonth + '-' + todaysDate
+}
+
 // write the CSV file
 const write2csv = function (err, csv) {
-  let today = new Date()
-  let todaysMonth = ("0" + (today.getMonth() + 1)).slice(-2)
-  let todaysDate = ("0" + today.getDate()).slice(-2)
-  let csvFilename = today.getFullYear() + '-' + todaysMonth + '-' + todaysDate
+  let csvFilename = createFilename()
 
   if (err) throw err
   fs.writeFile(`data/${csvFilename}.csv`, csv, (error) => {
