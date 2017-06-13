@@ -31,7 +31,7 @@ scrapeIt("http://www.shirts4mike.com/shirts.php", {
 // scrape info for each individual shirt
 const scrapeShirt = (shirt) => {
   let shirtURL = "http://www.shirts4mike.com/" + shirt.url;
-  
+
   scrapeIt(shirtURL, {
     title: "title",
     price: "h1 span",
@@ -57,7 +57,7 @@ const convert2csv = function () {
 // write the CSV file
 const write2csv = function (err, csv) {
   if (err) throw err;
-  fs.writeFile('today.csv', csv, (error) => {
+  fs.writeFile('data/today.csv', csv, (error) => {
     if (error) throw error;
     console.log('The file has been saved!');
   });
