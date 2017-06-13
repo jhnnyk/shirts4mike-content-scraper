@@ -57,7 +57,9 @@ const convert2csv = function () {
 // write the CSV file
 const write2csv = function (err, csv) {
   let today = new Date()
-  let csvFilename = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
+  let todaysMonth = ("0" + (today.getMonth() + 1)).slice(-2)
+  let todaysDate = ("0" + today.getDate()).slice(-2)
+  let csvFilename = today.getFullYear() + '-' + todaysMonth + '-' + todaysDate
 
   if (err) throw err
   fs.writeFile(`data/${csvFilename}.csv`, csv, (error) => {
