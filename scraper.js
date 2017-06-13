@@ -26,6 +26,8 @@ scrapeIt('http://www.shirts4mike.com/shirts.php', {
 }).then(shirtURLs => {
   shirtURLs.shirts.forEach(scrapeShirt)
   numberOfShirts = shirtURLs.shirts.length
+}).catch((err) => {
+  console.log('There’s been a 404 error. Cannot connect to the to http://shirts4mike.com.')
 })
 
 // scrape info for each individual shirt
@@ -46,6 +48,8 @@ const scrapeShirt = (shirt) => {
     if (numberOfShirts === shirtsArray.length) {
       convert2csv()
     }
+  }).catch((err) => {
+    console.log(err)
   })
 }
 
