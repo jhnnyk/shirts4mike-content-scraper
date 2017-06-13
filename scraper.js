@@ -30,7 +30,9 @@ scrapeIt("http://www.shirts4mike.com/shirts.php", {
 
 // scrape info for each individual shirt
 const scrapeShirt = (shirt) => {
-  scrapeIt("http://www.shirts4mike.com/" + shirt.url, {
+  let shirtURL = "http://www.shirts4mike.com/" + shirt.url;
+  
+  scrapeIt(shirtURL, {
     title: "title",
     price: "h1 span",
     imgURL: {
@@ -38,6 +40,7 @@ const scrapeShirt = (shirt) => {
       attr: "src"
     }
   }).then(shirt => {
+    shirt.url = shirtURL;
     shirt.time = new Date().toString();
     shirtsArray.push(shirt);
     if (numberOfShirts === shirtsArray.length) {
